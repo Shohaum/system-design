@@ -1,0 +1,20 @@
+# class files
+*.class
+
+# jar files
+*.jar
+
+# war files
+*.war
+
+# ear files
+*.ear
+
+# zip files
+*.zip
+
+# tar files
+*.tar
+
+# log files
+*.log
