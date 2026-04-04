@@ -10,7 +10,6 @@ from redis.server.store import Store
 from redis.server.commands import CommandDispatcher
 from redis.server.types import StringCommands, ListCommands, SetCommands
 
-
 @pytest.fixture
 def store():
     """A clean Store for low-level type tests."""

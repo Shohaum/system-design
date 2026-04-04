@@ -4,7 +4,6 @@ Tests for ListCommands + list dispatch.
 
 import pytest
 from redis.server.store import StoreError
-from redis.server.commands import CommandError
 
 class TestPushPop:
     def test_rpush_returns_length(self, lc):

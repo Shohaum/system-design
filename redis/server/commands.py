@@ -1,16 +1,14 @@
 """
-the entry point for parsed RESP commands over TCP.
+The entry point for parsed RESP commands over TCP.
 """
 
 from __future__ import annotations
-from .store import Store, StoreError
+from .store import Store
 from .types import StringCommands, ListCommands, SetCommands
-
 
 class CommandError(Exception):
     """Raised for unknown commands or wrong number of arguments."""
     pass
-
 
 class CommandDispatcher:
     """
