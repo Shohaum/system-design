@@ -105,7 +105,6 @@ def encode_error(msg: str) -> bytes:
     msg = msg.replace("\r", "").replace("\n", " ")
     return f"-ERR {msg}\r\n".encode()
 
-
 #   Parser
 
 class RESPParser:
@@ -135,8 +134,9 @@ class RESPParser:
         Try to parse one complete RESP command from the buffer.
         Returns the command as a list of strings, or None if incomplete.
         Advances the buffer past consumed bytes on success.
+        
         Raises RESPError on malformed input.
-        """
+         """
         if not self._buf:
             return None
 
@@ -176,13 +176,12 @@ class RESPParser:
         Read exactly `length` bytes + trailing \r\n from the buffer.
         Returns the decoded string, or None if not enough data yet.
         """
-        needed = length + 2   # +2 for \r\n
-        if len(self._buf) < needed:
+        if len(self._buf) < length + 2: # +2 for \r\n
             return None
         data = bytes(self._buf[:length])
         if self._buf[length:length + 2] != b"\r\n":
             raise RESPError(f"Expected \\r\\n after bulk string, got {self._buf[length:length+2]!r}")
-        del self._buf[:needed]
+        del self._buf[:length + 2]
         return data.decode(errors="replace")
 
     def _parse_array(self) -> list[str] | None:

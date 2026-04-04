@@ -86,12 +86,22 @@ class CommandDispatcher:
 
     def execute(self, raw: str) -> object:
         """
-        Parse and execute a raw command string.
+        Parse and execute a raw command string (for tests / REPL use).
+        Splits on whitespace then delegates to execute_tokens().
+        """
+        tokens = raw.strip().split()
+        if not tokens:
+            raise CommandError("Empty command")
+        return self.execute_tokens(tokens)
+
+    def execute_tokens(self, tokens: list[str]) -> object:
+        """
+        Execute a pre-parsed token list — used by the TCP server.
+        RESP gives us tokens already split; no string splitting needed.
         Returns the command result (str, int, list, set, bool, or None).
         Raises CommandError for unknown commands / wrong arg count.
         Raises StoreError for type mismatches.
         """
-        tokens = raw.strip().split()
         if not tokens:
             raise CommandError("Empty command")
         cmd = tokens[0].upper()
